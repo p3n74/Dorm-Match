@@ -6,10 +6,15 @@ import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { toNodeHandler } from "better-auth/node";
 import cors from "cors";
 import express from "express";
+import { existsSync } from "node:fs";
+import path from "node:path";
 
 import { requestLogger } from "./logger";
 
 const app = express();
+const port = Number.parseInt(process.env.PORT ?? "3000", 10);
+const webDistPath = process.env.WEB_DIST_DIR ?? path.resolve(process.cwd(), "apps/web/dist");
+const webIndexPath = path.join(webDistPath, "index.html");
 
 app.use(requestLogger);
 app.use(express.json());
@@ -33,10 +38,23 @@ app.use(
   }),
 );
 
-app.get("/", (_req, res) => {
-  res.status(200).send("OK");
-});
+if (existsSync(webIndexPath)) {
+  app.use(express.static(webDistPath));
 
-app.listen(3000, () => {
-  console.log("Server is running on http://localhost:3000");
+  app.get("/{*path}", (req, res, next) => {
+    if (req.path.startsWith("/api") || req.path.startsWith("/trpc")) {
+      next();
+      return;
+    }
+
+    res.sendFile(webIndexPath);
+  });
+} else {
+  app.get("/", (_req, res) => {
+    res.status(200).send("OK");
+  });
+}
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 });

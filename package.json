@@ -26,7 +26,6 @@
   },
   "devDependencies": {
     "@DormMatch/config": "*",
-    "@esbuild/win32-x64": "^0.28.0",
     "@types/node": "^22.13.14",
     "turbo": "^2.8.12",
     "typescript": "^6",
