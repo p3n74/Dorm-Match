@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: dormmatch
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/dormmatch
+      BETTER_AUTH_SECRET: 01234567890123456789012345678901
+      BETTER_AUTH_URL: http://localhost:3000
+      CORS_ORIGIN: http://localhost:3001
+      VITE_SERVER_URL: http://localhost:3000
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: DormMatch/package-lock.json
+
+      - name: Install dependencies
+        working-directory: DormMatch
+        run: npm ci
+
+      - name: Push database schema
+        working-directory: DormMatch
+        run: npm run db:push
+
+      - name: Typecheck
+        working-directory: DormMatch
+        run: npm run check-types
+
+      - name: Test
+        working-directory: DormMatch
+        run: npm test
+
+      - name: Build
+        working-directory: DormMatch
+        run: npm run build

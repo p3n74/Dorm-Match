@@ -7,7 +7,12 @@ import { toNodeHandler } from "better-auth/node";
 import cors from "cors";
 import express from "express";
 
+import { requestLogger } from "./logger";
+
 const app = express();
+
+app.use(requestLogger);
+app.use(express.json());
 
 app.use(
   cors({
@@ -27,8 +32,6 @@ app.use(
     createContext,
   }),
 );
-
-app.use(express.json());
 
 app.get("/", (_req, res) => {
   res.status(200).send("OK");

@@ -15,7 +15,9 @@
     "db:push": "turbo -F @DormMatch/db db:push",
     "db:studio": "turbo -F @DormMatch/db db:studio",
     "db:generate": "turbo -F @DormMatch/db db:generate",
-    "db:migrate": "turbo -F @DormMatch/db db:migrate"
+    "db:migrate": "turbo -F @DormMatch/db db:migrate",
+    "db:seed": "turbo -F @DormMatch/db db:seed",
+    "test": "vitest run"
   },
   "dependencies": {
     "@DormMatch/env": "*",
@@ -24,9 +26,11 @@
   },
   "devDependencies": {
     "@DormMatch/config": "*",
+    "@esbuild/win32-x64": "^0.28.0",
     "@types/node": "^22.13.14",
     "turbo": "^2.8.12",
-    "typescript": "^6"
+    "typescript": "^6",
+    "vitest": "^3.2.4"
   },
   "packageManager": "npm@11.5.1"
 }

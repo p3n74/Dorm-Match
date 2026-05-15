@@ -1,99 +1,43 @@
 # DormMatch
 
-This project was created with [Better-T-Stack](https://github.com/AmanVarshney01/create-better-t-stack), a modern TypeScript stack that combines React, TanStack Router, Express, TRPC, and more.
+Web-based dorm finder for students, institutional employees, and dorm owners.
 
-## Features
+## Stack
 
-- **TypeScript** - For type safety and improved developer experience
-- **TanStack Router** - File-based routing with full type safety
-- **TailwindCSS** - Utility-first CSS for rapid UI development
-- **Shared UI package** - shadcn/ui primitives live in `packages/ui`
-- **Express** - Fast, unopinionated web framework
-- **tRPC** - End-to-end type-safe APIs
-- **Node.js** - Runtime environment
-- **Drizzle** - TypeScript-first ORM
-- **PostgreSQL** - Database engine
-- **Authentication** - Better-Auth
-- **Turborepo** - Optimized monorepo build system
+- **Frontend:** React, Vite, TanStack Router, TanStack Query, Tailwind CSS, shadcn/ui
+- **Backend:** Express, tRPC, Better Auth
+- **Database:** PostgreSQL, Drizzle ORM
 
-## Getting Started
+## Development
 
-First, install the dependencies:
+1. Copy `apps/server/.env.example` to `apps/server/.env` and configure PostgreSQL.
+2. Copy `apps/web/.env.example` to `apps/web/.env`.
+3. Install and start:
 
 ```bash
 npm install
-```
-
-## Database Setup
-
-This project uses PostgreSQL with Drizzle ORM.
-
-1. Make sure you have a PostgreSQL database set up.
-2. Update your `apps/server/.env` file with your PostgreSQL connection details.
-
-3. Apply the schema to your database:
-
-```bash
 npm run db:push
-```
-
-Then, run the development server:
-
-```bash
+npm run db:seed
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser to see the web application.
-The API is running at [http://localhost:3000](http://localhost:3000).
+- Web: http://localhost:3001
+- API: http://localhost:3000
 
-## UI Customization
+## Seed accounts
 
-React web apps in this stack share shadcn/ui primitives through `packages/ui`.
+Default credentials (override via `SEED_*` env vars in `packages/db`):
 
-- Change design tokens and global styles in `packages/ui/src/styles/globals.css`
-- Update shared primitives in `packages/ui/src/components/*`
-- Adjust shadcn aliases or style config in `packages/ui/components.json` and `apps/web/components.json`
+| Role     | Email                    | Password        |
+|----------|--------------------------|-----------------|
+| Admin    | admin@dormmatch.test     | AdminPass123!   |
+| Tenant   | tenant@dormmatch.test    | TenantPass123!  |
+| Landlord | landlord@dormmatch.test  | LandlordPass123! |
 
-### Add more shared components
+## Scripts
 
-Run this from the project root to add more primitives to the shared UI package:
-
-```bash
-npx shadcn@latest add accordion dialog popover sheet table -c packages/ui
-```
-
-Import shared components like this:
-
-```tsx
-import { Button } from "@DormMatch/ui/components/button";
-```
-
-### Add app-specific blocks
-
-If you want to add app-specific blocks instead of shared primitives, run the shadcn CLI from `apps/web`.
-
-## Project Structure
-
-```
-DormMatch/
-├── apps/
-│   ├── web/         # Frontend application (React + TanStack Router)
-│   └── server/      # Backend API (Express, TRPC)
-├── packages/
-│   ├── ui/          # Shared shadcn/ui components and styles
-│   ├── api/         # API layer / business logic
-│   ├── auth/        # Authentication configuration & logic
-│   └── db/          # Database schema & queries
-```
-
-## Available Scripts
-
-- `npm run dev`: Start all applications in development mode
-- `npm run build`: Build all applications
-- `npm run dev:web`: Start only the web application
-- `npm run dev:server`: Start only the server
-- `npm run check-types`: Check TypeScript types across all apps
-- `npm run db:push`: Push schema changes to database
-- `npm run db:generate`: Generate database client/types
-- `npm run db:migrate`: Run database migrations
-- `npm run db:studio`: Open database studio UI
+- `npm run dev` — web + API
+- `npm run db:push` — apply Drizzle schema
+- `npm run db:seed` — seed dev data
+- `npm test` — unit tests
+- `npm run build` — production build

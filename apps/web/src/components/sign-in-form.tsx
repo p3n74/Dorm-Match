@@ -1,4 +1,6 @@
+import { Badge } from "@DormMatch/ui/components/badge";
 import { Button } from "@DormMatch/ui/components/button";
+import { Card, CardContent } from "@DormMatch/ui/components/card";
 import { Input } from "@DormMatch/ui/components/input";
 import { Label } from "@DormMatch/ui/components/label";
 import { useForm } from "@tanstack/react-form";
@@ -53,8 +55,13 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
   }
 
   return (
-    <div className="mx-auto w-full mt-10 max-w-md p-6">
-      <h1 className="mb-6 text-center text-3xl font-bold">Welcome Back</h1>
+    <Card className="mx-auto mt-10 w-full max-w-md">
+      <CardContent className="pt-6">
+      <div className="mb-6 text-center">
+        <Badge className="mb-3">Welcome back</Badge>
+        <h1 className="text-4xl font-black tracking-tight">Jump Back In</h1>
+        <p className="mt-2 text-sm text-muted-foreground">Your dorm search and community matches are waiting.</p>
+      </div>
 
       <form
         onSubmit={(e) => {
@@ -130,6 +137,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
           Need an account? Sign Up
         </Button>
       </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

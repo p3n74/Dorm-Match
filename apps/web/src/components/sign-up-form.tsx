@@ -1,4 +1,6 @@
+import { Badge } from "@DormMatch/ui/components/badge";
 import { Button } from "@DormMatch/ui/components/button";
+import { Card, CardContent } from "@DormMatch/ui/components/card";
 import { Input } from "@DormMatch/ui/components/input";
 import { Label } from "@DormMatch/ui/components/label";
 import { useForm } from "@tanstack/react-form";
@@ -7,6 +9,7 @@ import { toast } from "sonner";
 import z from "zod";
 
 import { authClient } from "@/lib/auth-client";
+import { trpcClient } from "@/utils/trpc";
 
 import Loader from "./loader";
 
@@ -21,6 +24,7 @@ export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () 
       email: "",
       password: "",
       name: "",
+      role: "tenant" as "tenant" | "dorm_owner",
     },
     onSubmit: async ({ value }) => {
       await authClient.signUp.email(
@@ -30,9 +34,10 @@ export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () 
           name: value.name,
         },
         {
-          onSuccess: () => {
+          onSuccess: async () => {
+            await trpcClient.profile.setRole.mutate({ role: value.role });
             navigate({
-              to: "/dashboard",
+              to: "/onboarding",
             });
             toast.success("Sign up successful");
           },
@@ -47,6 +52,7 @@ export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () 
         name: z.string().min(2, "Name must be at least 2 characters"),
         email: z.email("Invalid email address"),
         password: z.string().min(8, "Password must be at least 8 characters"),
+        role: z.enum(["tenant", "dorm_owner"]),
       }),
     },
   });
@@ -56,8 +62,13 @@ export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () 
   }
 
   return (
-    <div className="mx-auto w-full mt-10 max-w-md p-6">
-      <h1 className="mb-6 text-center text-3xl font-bold">Create Account</h1>
+    <Card className="mx-auto mt-10 w-full max-w-md">
+      <CardContent className="pt-6">
+      <div className="mb-6 text-center">
+        <Badge className="mb-3">Join DormMatch</Badge>
+        <h1 className="text-4xl font-black tracking-tight">Create Account</h1>
+        <p className="mt-2 text-sm text-muted-foreground">Start matching with dorms and roommates in minutes.</p>
+      </div>
 
       <form
         onSubmit={(e) => {
@@ -113,6 +124,25 @@ export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () 
         </div>
 
         <div>
+          <form.Field name="role">
+            {(field) => (
+              <div className="space-y-2">
+                <Label htmlFor={field.name}>I am a</Label>
+                <select
+                  id={field.name}
+                  className="h-11 w-full rounded-full border border-input bg-background/70 px-4 py-2 text-sm font-medium"
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value as "tenant" | "dorm_owner")}
+                >
+                  <option value="tenant">Tenant (looking for a dorm)</option>
+                  <option value="dorm_owner">Dorm owner / landlord</option>
+                </select>
+              </div>
+            )}
+          </form.Field>
+        </div>
+
+        <div>
           <form.Field name="password">
             {(field) => (
               <div className="space-y-2">
@@ -155,6 +185,7 @@ export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () 
           Already have an account? Sign In
         </Button>
       </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }
