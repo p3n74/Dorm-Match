@@ -1,0 +1,32 @@
+{
+  "name": "DormMatch",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "check-types": "turbo check-types",
+    "dev:web": "turbo -F web dev",
+    "dev:server": "turbo -F server dev",
+    "db:push": "turbo -F @DormMatch/db db:push",
+    "db:studio": "turbo -F @DormMatch/db db:studio",
+    "db:generate": "turbo -F @DormMatch/db db:generate",
+    "db:migrate": "turbo -F @DormMatch/db db:migrate"
+  },
+  "dependencies": {
+    "@DormMatch/env": "*",
+    "dotenv": "^17.2.2",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@DormMatch/config": "*",
+    "@types/node": "^22.13.14",
+    "turbo": "^2.8.12",
+    "typescript": "^6"
+  },
+  "packageManager": "npm@11.5.1"
+}

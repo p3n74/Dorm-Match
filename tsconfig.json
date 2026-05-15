@@ -1,0 +1,3 @@
+{
+  "extends": "@DormMatch/config/tsconfig.base.json"
+}
