@@ -9,16 +9,17 @@ import UserMenu from "./user-menu";
 export default function Header() {
   const session = authClient.useSession();
   const role = (session.data?.user as { role?: AppRole } | undefined)?.role;
+  const portalLink = role
+    ? {
+        to: portalPathForRole(role) as "/" | "/tenant" | "/landlord" | "/admin",
+        label: role === "tenant" ? "Tenant Portal" : role === "dorm_owner" ? "Owner Portal" : "Admin",
+      }
+    : undefined;
 
   const links = [
     { to: "/", label: "Home" },
     { to: "/browse", label: "Browse" },
-    ...(role === "tenant" ? [{ to: "/tenant" as const, label: "Tenant Portal" }] : []),
-    ...(role === "dorm_owner" ? [{ to: "/landlord" as const, label: "Owner Portal" }] : []),
-    ...(role === "admin" ? [{ to: "/admin" as const, label: "Admin" }] : []),
-    ...(session.data && role
-      ? [{ to: portalPathForRole(role) as "/" | "/tenant" | "/landlord" | "/admin", label: "Dashboard" }]
-      : []),
+    ...(session.data && portalLink ? [portalLink] : []),
   ] as const;
 
   return (

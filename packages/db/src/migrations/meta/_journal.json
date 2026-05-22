@@ -8,6 +8,13 @@
       "when": 1778859469982,
       "tag": "0000_natural_famine",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1779438984457,
+      "tag": "0001_slow_captain_midlands",
+      "breakpoints": true
     }
   ]
 }
