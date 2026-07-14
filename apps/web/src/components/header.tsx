@@ -36,14 +36,16 @@ export default function Header() {
         </Link>
         <nav className="hidden flex-wrap items-center gap-2 text-sm md:flex">
           {links.map(({ to, label }) => (
-            <Link
-              key={to}
-              to={to}
-              className="rounded-full px-4 py-2 font-bold text-zinc-400 transition-colors hover:bg-white/5 hover:text-white"
-              activeProps={{ className: "bg-white text-zinc-950" }}
-            >
-              {label}
-            </Link>
+<Link
+  key={to}
+  to={to}
+  className="rounded-full px-4 py-2 font-bold text-zinc-300 transition-colors hover:bg-blue-800/40 hover:text-white"
+  activeProps={{
+    className: "bg-blue-700 text-white",
+  }}
+>
+  {label}
+</Link>
           ))}
         </nav>
         <div className="flex items-center gap-2">
