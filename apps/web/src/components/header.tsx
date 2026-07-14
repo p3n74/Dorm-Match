@@ -23,7 +23,7 @@ export default function Header() {
   ] as const;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/5 bg-zinc-950/95 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-blue-900/40 bg-[#0B1F3A]/95 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl flex-row items-center justify-between gap-4 px-4 py-3">
         <Link to="/" className="flex items-center gap-3">
           <span className="flex size-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white">
