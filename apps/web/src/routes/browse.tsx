@@ -103,12 +103,13 @@ function BrowsePage() {
   };
 
   return (
+  <div className="min-h-screen bg-[#F4F9FF]">
     <div className="container mx-auto max-w-6xl px-4 py-8">
       <div className="mb-8 flex flex-col justify-between gap-5 md:flex-row md:items-end">
         <div className="max-w-3xl">
           <Badge className="mb-4">Verified student stays</Badge>
-          <h1 className="text-4xl font-black tracking-tight md:text-6xl">Find a room that fits your daily life.</h1>
-          <p className="mt-4 text-lg text-zinc-400">
+          <h1 className="text-4xl font-black tracking-tight text-[#1E293B] md:text-6xl">Find a room that fits your daily life.</h1>
+          <p className="mt-4 text-lg text-[#1E293B]">
             Compare student housing, review room options, and connect with potential roommates before you book.
           </p>
         </div>
@@ -145,7 +146,7 @@ function BrowsePage() {
                   />
                 )}
                 {!savedChats.isLoading && !savedChats.isError && savedChats.data?.length === 0 && (
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-[#1E293B]">
                     Start a roommate chat below and it will stay here for both students.
                   </p>
                 )}
@@ -158,7 +159,7 @@ function BrowsePage() {
                       className="rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-white/25 hover:bg-white/10"
                     >
                       <p className="font-black">{chat.roommate.name}</p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-[#1E293B]">
                         {chat.latestMessage?.body ??
                           (chat.roommate.school ? `${chat.roommate.school} student` : "Roommate conversation")}
                       </p>
@@ -195,7 +196,7 @@ function BrowsePage() {
                     </Avatar>
                     <div>
                       <CardTitle>{roommate.name}</CardTitle>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-[#1E293B]">
                         {roommate.school === "Student" ? "Student" : `${roommate.school} student`}
                       </p>
                     </div>
@@ -249,7 +250,7 @@ function BrowsePage() {
               <div>
                 <Label>Room type</Label>
                 <select
-                  className="h-11 w-full rounded-full border border-input bg-background/70 px-4 py-2 text-sm font-medium"
+                 className="h-11 w-full rounded-full border border-blue-200 bg-[#DCEBFA] px-4 py-2 text-sm font-medium text-[#1E293B]"
                   value={roomType}
                   onChange={(event) => setRoomType(event.target.value as typeof roomType)}
                 >
@@ -262,7 +263,7 @@ function BrowsePage() {
               <div>
                 <Label>Availability</Label>
                 <select
-                  className="h-11 w-full rounded-full border border-input bg-background/70 px-4 py-2 text-sm font-medium"
+                 className="h-11 w-full rounded-full border border-blue-200 bg-[#DCEBFA] px-4 py-2 text-sm font-medium text-[#1E293B]"
                   value={availabilityStatus}
                   onChange={(event) => setAvailabilityStatus(event.target.value as typeof availabilityStatus)}
                 >
@@ -281,10 +282,10 @@ function BrowsePage() {
                       key={amenity.id}
                       type="button"
                       className={`rounded-full border px-3 py-1 text-xs font-black transition ${
-                        amenityIds.includes(amenity.id)
-                          ? "border-white bg-white text-zinc-950"
-                          : "border-white/10 bg-white/5 text-zinc-400 hover:border-white/25 hover:text-white"
-                      }`}
+                      amenityIds.includes(amenity.id)
+                       ? "border-[#08284D] bg-[#08284D] text-white"
+                       : "border-blue-300 bg-[#DCEBFA] text-[#1E293B] hover:bg-[#08284D] hover:text-white"
+                        }`}
                       onClick={() => toggleAmenity(amenity.id)}
                     >
                       {amenity.name}
@@ -327,7 +328,7 @@ function BrowsePage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="text-sm text-muted-foreground">{listing.address}</p>
+                  <p className="text-sm text-[#1E293B]">{listing.address}</p>
                   <div className="flex flex-wrap gap-2">
                     <Badge variant="cyan">{listing.rooms.length} room option(s)</Badge>
                     {listing.nearbySchool && <Badge variant="secondary">Near {listing.nearbySchool}</Badge>}
@@ -346,6 +347,7 @@ function BrowsePage() {
           </div>
         </TabsContent>
       </Tabs>
+    </div>
     </div>
   );
 }

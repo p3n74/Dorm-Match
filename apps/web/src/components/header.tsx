@@ -23,14 +23,14 @@ export default function Header() {
   ] as const;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-blue-900/40 bg-[#0B1F3A]/95 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-blue-900/40 bg-[#08284D]/95 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl flex-row items-center justify-between gap-4 px-4 py-3">
         <Link to="/" className="flex items-center gap-3">
-          <span className="flex size-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white">
+          <span className="flex size-11 items-center justify-center rounded-full border border-white/10 bg-black text-white">
             <Building2 className="size-5" />
           </span>
           <span>
-            <span className="block text-lg font-black tracking-tight">DormMatch</span>
+            <span className="block text-lg font-black text-white tracking-tight">DormMatch</span>
             <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400">Student housing</span>
           </span>
         </Link>
@@ -39,9 +39,9 @@ export default function Header() {
 <Link
   key={to}
   to={to}
-  className="rounded-full px-4 py-2 font-bold text-zinc-300 transition-colors hover:bg-blue-800/40 hover:text-white"
+  className="rounded-full px-4 py-2 font-bold text-white transition-colors hover:bg-blue-800/40 hover:text-white"
   activeProps={{
-    className: "bg-blue-700 text-white",
+    className: "bg-[#0F3D73] text-white",
   }}
 >
   {label}

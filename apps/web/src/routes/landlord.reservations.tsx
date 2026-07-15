@@ -27,9 +27,10 @@ function LandlordReservationsPage() {
   if (inbox.isLoading) return <PageLoader label="Loading reservation inbox..." />;
 
   return (
-    <div className="container mx-auto max-w-5xl px-4 py-8 space-y-4">
-      <Badge className="mb-2">Owner inbox</Badge>
-      <h1 className="text-4xl font-black tracking-tight md:text-5xl">Reservation Inbox</h1>
+    <div className="min-h-screen bg-[#F4F9FF]">
+  <div className="container mx-auto max-w-5xl px-4 py-8 space-y-6">
+      <Badge className="mb-2 rounded-full border border-[#BFDBFE] bg-[#DBEAFE] px-4 py-1 text-[#0F3D73]">Owner inbox</Badge>
+      <h1 className="text-4xl font-black tracking-tight text-[#1E293B] md:text-5xl">Reservation Inbox</h1>
       {inbox.isError && (
         <ErrorState
           title="Could not load reservation inbox"
@@ -38,52 +39,60 @@ function LandlordReservationsPage() {
         />
       )}
       {inbox.data?.map((r) => (
-        <Card key={r.id}>
+        <Card className="border border-blue-100 bg-white shadow-lg shadow-blue-100/50" key={r.id}>
           <CardHeader>
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-center gap-3">
-              <Avatar>
-                <AvatarFallback>{r.tenant.name.slice(0, 2).toUpperCase()}</AvatarFallback>
-              </Avatar>
+              <Avatar className="bg-[#DBEAFE]">
+                <AvatarFallback className="bg-[#DBEAFE] font-bold text-[#0F3D73]">
+    {r.tenant.name.slice(0, 2).toUpperCase()}
+  </AvatarFallback>
+</Avatar>
               <div>
-                <CardTitle>{r.tenant.name}</CardTitle>
-                <p className="text-sm text-muted-foreground">{r.tenant.email}</p>
+              <CardTitle className="text-[#1E293B]">
+  {r.tenant.name}
+</CardTitle>
+
+<p className="text-sm text-[#64748B]">
+  {r.tenant.email}
+</p>
                 <Badge variant={r.status === "confirmed" || r.status === "active" ? "success" : "warning"}>
                   {r.status}
                 </Badge>
               </div>
               </div>
               <div className="text-right text-sm">
-                <p className="font-black">{r.dorm.name}</p>
-                <p className="capitalize text-muted-foreground">
+                <p className="font-black text-[#1E293B]">{r.dorm.name}</p>
+                <p className="capitalize text-[#64748B]">
                   {r.room.roomType} room · ₱{r.room.monthlyRate}/mo
                 </p>
               </div>
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm md:grid-cols-3">
+            <div className="grid gap-3 rounded-2xl border border-blue-100 bg-[#EFF6FF] p-4 text-sm md:grid-cols-3">
               <div>
-                <p className="font-black">Move-in</p>
-                <p className="text-muted-foreground">{new Date(r.moveInDate).toLocaleDateString()}</p>
+                <p className="font-bold text-[#1E293B]">Move-in</p>
+                <p className="text-[#64748B]">{new Date(r.moveInDate).toLocaleDateString()}</p>
               </div>
               <div>
-                <p className="font-black">Move-out</p>
-                <p className="text-muted-foreground">
+                <p className="font-bold text-[#1E293B]">Move-out</p>
+                <p className="text-[#64748B]">
                   {r.moveOutDate ? new Date(r.moveOutDate).toLocaleDateString() : "Not set"}
                 </p>
               </div>
               <div>
-                <p className="font-black">Room status</p>
-                <p className="capitalize text-muted-foreground">{r.room.availabilityStatus}</p>
+                <p className="font-bold text-[#1E293B]">Room status</p>
+                <p className="capitalize text-[#64748B]">{r.room.availabilityStatus}</p>
               </div>
             </div>
             <div className="flex flex-wrap gap-2">
             {r.status === "pending" && (
               <>
                 <Button
-                  size="sm"
-                  disabled={respond.isPending}
+  size="sm"
+  className="bg-[#2563EB] text-white hover:bg-[#1D4ED8]"
+  disabled={respond.isPending}
                   onClick={async () => {
                     try {
                       await respond.mutateAsync({ id: r.id, accept: true });
@@ -125,7 +134,7 @@ function LandlordReservationsPage() {
             )}
             {r.status === "confirmed" && (
               <MutationButton
-                size="sm"
+  className="bg-[#2563EB] text-white hover:bg-[#1D4ED8]"
                 isPending={setActive.isPending}
                 pendingLabel="Marking active..."
                 onClick={async () => {
@@ -148,7 +157,14 @@ function LandlordReservationsPage() {
                   description="This will close the active reservation and return the room to available if no other active requests exist."
                   confirmLabel="Complete stay"
                   isPending={complete.isPending}
-                  trigger={<Button size="sm">Complete stay</Button>}
+                  trigger={
+  <Button
+    size="sm"
+    className="bg-[#2563EB] text-white hover:bg-[#1D4ED8]"
+  >
+    Complete stay
+  </Button>
+}
                   onConfirm={async () => {
                     try {
                       await complete.mutateAsync({ id: r.id });
@@ -161,10 +177,11 @@ function LandlordReservationsPage() {
                 />
                 <div className="flex w-full items-end gap-2">
                   <div>
-                    <Label>Record payment (₱)</Label>
+                    <Label className="font-semibold text-[#1E293B]">Record payment (₱)</Label>
                     <Input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} />
                   </div>
                   <MutationButton
+  className="bg-[#2563EB] text-white hover:bg-[#1D4ED8]"
                     size="sm"
                     isPending={recordPayment.isPending}
                     pendingLabel="Recording..."
@@ -202,6 +219,7 @@ function LandlordReservationsPage() {
           description="New tenant requests will appear here once students submit reservation requests for your rooms."
         />
       )}
+    </div>
     </div>
   );
 }

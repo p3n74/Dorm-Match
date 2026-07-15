@@ -41,7 +41,8 @@ function TenantDashboard() {
   if (profile.isLoading) return <PageLoader label="Loading student hub..." />;
 
   return (
-    <div className="container mx-auto max-w-5xl px-4 py-8 space-y-6">
+   <div className="min-h-screen bg-[#F4F9FF]">
+  <div className="container mx-auto max-w-6xl px-4 py-8 space-y-8">
       {profile.isError && (
         <ErrorState
           title="Could not load your profile"
@@ -49,35 +50,45 @@ function TenantDashboard() {
           retry={() => void profile.refetch()}
         />
       )}
-      <div className="flex flex-col justify-between gap-4 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl shadow-black/30 backdrop-blur-md md:flex-row md:items-center">
+      <div className="flex flex-col justify-between gap-4 rounded-3xl border border-blue-100 bg-white p-6 shadow-xl shadow-blue-100 md:flex-row md:items-center">
         <div className="flex items-center gap-4">
-          <Avatar className="size-16">
+          <Avatar className="size-16 border border-blue-200 bg-[#DBEAFE] text-[#0F3D73]">
             <AvatarFallback>{profile.data?.user.name?.slice(0, 2).toUpperCase() ?? "ST"}</AvatarFallback>
           </Avatar>
           <div>
-            <Badge className="mb-2">Student Hub</Badge>
-            <h1 className="text-4xl font-black tracking-tight">Hey, {profile.data?.user.name ?? "student"}!</h1>
-            <p className="text-muted-foreground">Tune your profile, discover dorms, and track your move-in flow.</p>
+            <Badge className="mb-2 rounded-full border border-[#BFDBFE] bg-[#DBEAFE] text-[#0F3D73]">Student Hub</Badge>
+            <h1 className="text-4xl font-black tracking-tight text-[#1E293B]">Hey, {profile.data?.user.name ?? "student"}!</h1>
+            <p className="text-[#64748B]">Tune your profile, discover dorms, and track your move-in flow.</p>
           </div>
         </div>
       </div>
 
       <div className="flex flex-wrap gap-2">
         <Link to="/browse">
-          <Button>Browse dorms</Button>
+          <Button className="bg-[#2563EB] text-white hover:bg-[#1D4ED8]">Browse dorms</Button>
         </Link>
+        <Link to="/tenant/payments">
+  <Button
+    variant="outline"
+    className="border-[#BFDBFE] bg-[#EFF6FF] text-[#0F3D73] hover:bg-[#DBEAFE] hover:text-[#0F3D73]"
+  >
+    Payment History
+  </Button>
+</Link>
         <Link to="/tenant/reservations">
-          <Button variant="outline">My reservations</Button>
+          <Button
+            variant="outline"
+            className="border-[#BFDBFE] bg-[#EFF6FF] text-[#0F3D73] hover:bg-[#DBEAFE] hover:text-[#0F3D73]">My reservations</Button>
         </Link>
       </div>
 
-      <Card>
+      <Card className="border-blue-100 bg-white shadow-lg shadow-blue-100/50">
         <CardHeader>
-          <CardTitle>Profile</CardTitle>
+          <CardTitle className="text-[#1E293B]">Profile</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-3 md:grid-cols-3">
           <div>
-            <Label>School</Label>
+            <Label className="font-semibold text-[#1E293B]">School</Label>
             <Input value={school} onChange={(e) => setSchool(e.target.value)} placeholder="University" />
           </div>
           <div>
@@ -88,7 +99,8 @@ function TenantDashboard() {
             <Label>Budget range</Label>
             <Input value={budgetRange} onChange={(e) => setBudgetRange(e.target.value)} />
           </div>
-          <MutationButton onClick={saveProfile} isPending={upsert.isPending} pendingLabel="Saving...">
+          <MutationButton
+            className="bg-[#2563EB] text-white hover:bg-[#1D4ED8]" onClick={saveProfile} isPending={upsert.isPending} pendingLabel="Saving...">
             Save profile
           </MutationButton>
         </CardContent>
@@ -108,8 +120,17 @@ function TenantDashboard() {
             />
           )}
           {notifications.data?.slice(0, 5).map((n) => (
-            <p key={n.id} className={`text-sm ${n.read ? "text-muted-foreground" : ""}`}>
-              <Badge variant={n.read ? "secondary" : "cyan"} className="mr-2">{n.read ? "Read" : "New"}</Badge>
+            <p key={n.id} className={`text-sm ${ n.read ? "text-[#64748B]" : "text-[#1E293B]" }`}>
+              <Badge
+    variant={n.read ? "secondary" : "default"}
+    className={
+      n.read
+        ? "mr-2 border border-[#BFDBFE] bg-[#EFF6FF] text-[#64748B]"
+        : "mr-2 border border-[#BFDBFE] bg-[#DBEAFE] text-[#0F3D73]"
+    }
+  >
+    {n.read ? "Read" : "New"}
+  </Badge>
               {n.message}
             </p>
           ))}
@@ -121,6 +142,7 @@ function TenantDashboard() {
           )}
         </CardContent>
       </Card>
+    </div>
     </div>
   );
 }

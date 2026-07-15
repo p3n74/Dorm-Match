@@ -51,9 +51,10 @@ function LandlordListingsPage() {
   };
 
   return (
-    <div className="container mx-auto max-w-5xl px-4 py-8 space-y-6">
-      <Badge className="mb-2">Listing lab</Badge>
-      <h1 className="text-4xl font-black tracking-tight md:text-5xl">Manage Listings</h1>
+    <div className="min-h-screen bg-[#F4F9FF]">
+  <div className="container mx-auto max-w-5xl px-4 py-8 space-y-6">
+      <Badge className="mb-2 rounded-full border border-[#BFDBFE] bg-[#DBEAFE] px-4 py-1 text-[#0F3D73]">Listing lab</Badge>
+      <h1 className="text-4xl font-black tracking-tight text-[#1E293B] md:text-5xl">Manage Listings</h1>
       {listings.isError && (
         <ErrorState
           title="Could not load your listings"
@@ -62,19 +63,19 @@ function LandlordListingsPage() {
         />
       )}
 
-      <Card>
+      <Card className="border border-blue-100 bg-white shadow-lg shadow-blue-100/50">
         <CardHeader>
-          <CardTitle>Your dorms</CardTitle>
+          <CardTitle className="text-[#1E293B]">Your dorms</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2">
           {listings.data?.length === 0 && (
             <EmptyState
-              title="No dorms to manage"
+              title="No dorms to manage"  
               description="Create a listing from the Owner Studio before adding rooms or submitting for approval."
             />
           )}
           {listings.data?.map((l) => (
-            <p key={l.id} className="text-sm">
+           <p key={l.id} className="text-sm font-medium text-[#1E293B]">
               {l.name} <Badge variant={l.listingStatus === "approved" ? "success" : "warning"}>{l.listingStatus}</Badge>
             </p>
           ))}
@@ -82,9 +83,9 @@ function LandlordListingsPage() {
       </Card>
 
       {selectedId && (
-        <Card>
+        <Card className="border border-blue-100 bg-white shadow-lg shadow-blue-100/50">
           <CardHeader>
-            <CardTitle>{listing.data?.name ?? "Listing"}</CardTitle>
+            <CardTitle className="text-[#1E293B]">{listing.data?.name ?? "Listing"}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {listing.isLoading && <InlineLoader label="Loading listing details..." />}
@@ -97,7 +98,7 @@ function LandlordListingsPage() {
             )}
             <div className="grid gap-3 md:grid-cols-2">
               <div>
-                <Label>Description</Label>
+                <Label className="font-semibold text-[#1E293B]">Description</Label>
                 <Input
                   value={description}
                   onChange={(event) => setDescription(event.target.value)}
@@ -105,7 +106,7 @@ function LandlordListingsPage() {
                 />
               </div>
               <div>
-                <Label>House rules</Label>
+                <Label className="font-semibold text-[#1E293B]">House rules</Label>
                 <Input
                   value={houseRules}
                   onChange={(event) => setHouseRules(event.target.value)}
@@ -113,7 +114,7 @@ function LandlordListingsPage() {
                 />
               </div>
               <div>
-                <Label>Nearby school/workplace</Label>
+                <Label className="font-semibold text-[#1E293B]">Nearby school/workplace</Label>
                 <Input
                   value={nearbySchool}
                   onChange={(event) => setNearbySchool(event.target.value)}
@@ -122,16 +123,16 @@ function LandlordListingsPage() {
               </div>
               <div className="grid gap-3 sm:grid-cols-2">
                 <div>
-                  <Label>Latitude</Label>
+                  <Label className="font-semibold text-[#1E293B]">Latitude</Label>
                   <Input value={latitude} onChange={(event) => setLatitude(event.target.value)} placeholder="14.5995" />
                 </div>
                 <div>
-                  <Label>Longitude</Label>
+                  <Label className="font-semibold text-[#1E293B]">Longitude</Label>
                   <Input value={longitude} onChange={(event) => setLongitude(event.target.value)} placeholder="120.9842" />
                 </div>
               </div>
               <div className="md:col-span-2">
-                <Label>Amenities</Label>
+                <Label className="font-semibold text-[#1E293B]">Amenities</Label>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {amenities.isLoading && <InlineLoader label="Loading amenities..." />}
                   {amenities.data?.map((amenity) => (
@@ -140,8 +141,8 @@ function LandlordListingsPage() {
                       type="button"
                       className={`rounded-full border px-3 py-1 text-xs font-black transition ${
                         selectedAmenityIds.includes(amenity.id)
-                          ? "border-white bg-white text-zinc-950"
-                          : "border-white/10 bg-white/5 text-zinc-400 hover:border-white/25 hover:text-white"
+  ? "border-[#2563EB] bg-[#2563EB] text-white"
+  : "border-[#BFDBFE] bg-[#EFF6FF] text-[#0F3D73] hover:bg-[#DBEAFE]"
                       }`}
                       onClick={() => toggleAmenity(amenity.id)}
                     >
@@ -151,7 +152,7 @@ function LandlordListingsPage() {
                 </div>
               </div>
               <MutationButton
-                className="md:col-span-2"
+  className="md:col-span-2 w-full bg-[#2563EB] text-white hover:bg-[#1D4ED8]"
                 isPending={updateListing.isPending}
                 pendingLabel="Saving listing..."
                 onClick={async () => {
@@ -177,17 +178,18 @@ function LandlordListingsPage() {
               </MutationButton>
             </div>
 
-            <div className="grid gap-3 border-t border-white/10 pt-4 md:grid-cols-[1fr_1fr_auto]">
+            <div className="grid gap-3 border-t border-blue-100 pt-4 md:grid-cols-[1fr_1fr_auto]">
               <div>
-                <Label>Photo URL</Label>
+                <Label className="font-semibold text-[#1E293B]">Photo URL</Label>
                 <Input value={photoUrl} onChange={(event) => setPhotoUrl(event.target.value)} placeholder="https://..." />
               </div>
               <div>
-                <Label>Caption</Label>
+                <Label className="font-semibold text-[#1E293B]">Caption</Label>
                 <Input value={photoCaption} onChange={(event) => setPhotoCaption(event.target.value)} />
               </div>
               <div className="flex items-end">
                 <MutationButton
+  className="bg-[#2563EB] text-white hover:bg-[#1D4ED8]"
                   isPending={addPhoto.isPending}
                   pendingLabel="Adding photo..."
                   onClick={async () => {
@@ -216,9 +218,9 @@ function LandlordListingsPage() {
             </div>
             <div className="grid gap-3 md:grid-cols-3">
               {listing.data?.photos.map((photo) => (
-                <div key={photo.id} className="overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+                <div key={photo.id} className="overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-md shadow-blue-100/40">
                   <img src={photo.imageUrl} alt={photo.caption ?? "Dorm photo"} className="h-36 w-full object-cover" />
-                  {photo.caption && <p className="p-3 text-sm text-muted-foreground">{photo.caption}</p>}
+                  {photo.caption && <p className="p-3 text-sm text-[#64748B]">{photo.caption}</p>}
                 </div>
               ))}
               {listing.data?.photos.length === 0 && (
@@ -231,9 +233,9 @@ function LandlordListingsPage() {
 
             <div className="grid gap-3 md:grid-cols-3">
               <div>
-                <Label>Room type</Label>
+                <Label className="font-semibold text-[#1E293B]">Room type</Label>
                 <select
-                  className="h-11 w-full rounded-full border border-input bg-background/70 px-4 py-2 text-sm font-medium"
+                  className="h-11 w-full rounded-full border border-[#BFDBFE] bg-[#EFF6FF] px-4 py-2 text-sm font-medium text-[#1E293B] focus:border-[#2563EB] focus:ring-2 focus:ring-[#BFDBFE]"
                   value={roomType}
                   onChange={(e) => setRoomType(e.target.value as typeof roomType)}
                 >
@@ -243,11 +245,12 @@ function LandlordListingsPage() {
                 </select>
               </div>
               <div>
-                <Label>Monthly rate (₱)</Label>
+                <Label className="font-semibold text-[#1E293B]">Monthly rate (₱)</Label>
                 <Input type="number" value={monthlyRate} onChange={(e) => setMonthlyRate(e.target.value)} />
               </div>
               <div className="flex items-end">
                 <MutationButton
+  className="bg-[#2563EB] text-white hover:bg-[#1D4ED8]"
                   isPending={addRoom.isPending}
                   pendingLabel="Adding..."
                   onClick={async () => {
@@ -277,7 +280,14 @@ function LandlordListingsPage() {
               description="Admins will review the listing before it becomes visible to tenants."
               confirmLabel="Submit listing"
               isPending={submit.isPending}
-              trigger={<Button variant="outline">Submit for approval</Button>}
+              trigger={
+  <Button
+    variant="outline"
+    className="rounded-full border-[#BFDBFE] bg-[#EFF6FF] text-[#0F3D73] hover:bg-[#DBEAFE]"
+  >
+    Submit for approval
+  </Button>
+}
               onConfirm={async () => {
                 try {
                   await submit.mutateAsync({ id: selectedId });
@@ -290,7 +300,7 @@ function LandlordListingsPage() {
               }}
             />
             <div>
-              <p className="mb-2 font-medium">Rooms</p>
+              <p className="mb-2 font-semibold text-[#1E293B]">Rooms</p>
               {listing.data?.rooms.length === 0 && (
                 <EmptyState
                   title="No rooms yet"
@@ -298,14 +308,26 @@ function LandlordListingsPage() {
                 />
               )}
               {listing.data?.rooms.map((r) => (
-                <p key={r.id} className="text-sm capitalize">
-                  {r.roomType} — ₱{r.monthlyRate} <Badge variant={r.availabilityStatus === "available" ? "success" : "warning"}>{r.availabilityStatus}</Badge>
-                </p>
+               <p
+  key={r.id}
+  className="flex items-center gap-2 text-sm font-medium capitalize text-[#1E293B]"
+>
+  <span>
+    {r.roomType} — ₱{r.monthlyRate}
+  </span>
+
+  <Badge
+    variant={r.availabilityStatus === "available" ? "success" : "warning"}
+  >
+    {r.availabilityStatus}
+  </Badge>
+</p>
               ))}
             </div>
           </CardContent>
         </Card>
       )}
+    </div>
     </div>
   );
 }

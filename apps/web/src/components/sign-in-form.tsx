@@ -55,12 +55,14 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
   }
 
   return (
-    <Card className="mx-auto mt-10 w-full max-w-md">
-      <CardContent className="pt-6">
+   <Card className="mx-auto mt-12 w-full max-w-md rounded-3xl border border-blue-100 bg-white shadow-2xl shadow-blue-200/50">
+  <CardContent className="pt-6">
       <div className="mb-6 text-center">
-        <Badge className="mb-3">Welcome back</Badge>
-        <h1 className="text-4xl font-black tracking-tight">Jump Back In</h1>
-        <p className="mt-2 text-sm text-muted-foreground">Your dorm search and community matches are waiting.</p>
+        <Badge className="mb-3 rounded-full border border-[#BFDBFE] bg-[#DBEAFE] px-4 py-1 text-[#0F3D73]">
+        Welcome Back
+        </Badge>
+        <h1 className="text-4xl font-black tracking-tight text-[#1E293B]">Jump Back In</h1>
+        <p className="mt-2 text-sm text-[#64748B]">Your dorm search and community matches are waiting.</p>
       </div>
 
       <form
@@ -75,7 +77,12 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
           <form.Field name="email">
             {(field) => (
               <div className="space-y-2">
-                <Label htmlFor={field.name}>Email</Label>
+                <Label
+  htmlFor={field.name}
+  className="font-semibold text-[#1E293B]"
+>
+  Email
+</Label>
                 <Input
                   id={field.name}
                   name={field.name}
@@ -98,7 +105,12 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
           <form.Field name="password">
             {(field) => (
               <div className="space-y-2">
-                <Label htmlFor={field.name}>Password</Label>
+                <Label
+  htmlFor={field.name}
+  className="font-semibold text-[#1E293B]"
+>
+  Password
+</Label>
                 <Input
                   id={field.name}
                   name={field.name}
@@ -121,7 +133,8 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
           selector={(state) => ({ canSubmit: state.canSubmit, isSubmitting: state.isSubmitting })}
         >
           {({ canSubmit, isSubmitting }) => (
-            <Button type="submit" className="w-full" disabled={!canSubmit || isSubmitting}>
+            <Button type="submit"
+    className="w-full rounded-full bg-[#2563EB] text-white hover:bg-[#1D4ED8]" disabled={!canSubmit || isSubmitting}>
               {isSubmitting ? "Submitting..." : "Sign In"}
             </Button>
           )}
@@ -132,7 +145,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
         <Button
           variant="link"
           onClick={onSwitchToSignUp}
-          className="text-indigo-600 hover:text-indigo-800"
+          className="text-[#2563EB] hover:text-[#1D4ED8]"
         >
           Need an account? Sign Up
         </Button>

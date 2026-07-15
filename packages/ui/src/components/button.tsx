@@ -7,13 +7,13 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-indigo-700 text-white hover:bg-indigo-600 [a]:hover:bg-indigo-600",
-        outline:
-          "border-white/15 bg-white/5 text-foreground hover:border-white/25 hover:bg-white/10 aria-expanded:bg-muted aria-expanded:text-foreground dark:border-white/15 dark:bg-white/5 dark:hover:bg-white/10",
+        default: "bg-[#2563EB] text-white hover:bg-[#1D4ED8] [a]:hover:bg-indigo-600",
+      outline:
+"border-blue-200 bg-white text-[#08284D] hover:bg-[#08284D] hover:text-white",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
         ghost:
-          "hover:bg-white/10 hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-white/10",
+          "hover:bg-[#08284D] hover:text-white hover:text-[#08284D] aria-expanded:bg-muted aria-expanded:text-[#08284D] dark:hover:bg-white/10",
         destructive:
           "bg-destructive/15 text-destructive hover:bg-destructive/25 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",

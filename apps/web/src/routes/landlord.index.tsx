@@ -65,7 +65,8 @@ function LandlordDashboard() {
       : undefined;
 
   return (
-    <div className="container mx-auto max-w-5xl px-4 py-8 space-y-6">
+    <div className="min-h-screen bg-[#F4F9FF]">
+  <div className="container mx-auto max-w-5xl px-4 py-8 space-y-6">
       {profile.isError && (
         <ErrorState
           title="Could not load landlord profile"
@@ -73,52 +74,59 @@ function LandlordDashboard() {
           retry={() => void profile.refetch()}
         />
       )}
-      <div className="flex items-center gap-4 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl shadow-black/30 backdrop-blur-md">
-        <Avatar className="size-16">
-          <AvatarFallback>LO</AvatarFallback>
-        </Avatar>
+     <div className="flex items-center gap-4 rounded-3xl border border-blue-100 bg-white p-6 shadow-xl shadow-blue-100/60">
+      <Avatar className="size-16 bg-[#DBEAFE]">
+  <AvatarFallback className="bg-[#DBEAFE] font-bold text-[#0F3D73]">
+    LO
+  </AvatarFallback>
+</Avatar>
         <div>
-          <Badge variant={verification === "approved" ? "success" : "warning"} className="mb-2">
+          <Badge
+  variant={verification === "approved" ? "success" : "warning"}
+  className="mb-2 rounded-full px-4 py-1">
             {verification ?? "pending"} verification
           </Badge>
-          <h1 className="text-4xl font-black tracking-tight">Owner Studio</h1>
-          <p className="text-muted-foreground">Create standout listings and move reservations through faster.</p>
+          <h1 className="text-4xl font-black tracking-tight text-[#1E293B]">Owner Studio</h1>
+          <p className="text-[#64748B]">Create standout listings and move reservations through faster.</p>
         </div>
       </div>
 
-      <Card>
+      <Card className="border border-blue-100 bg-white shadow-lg shadow-blue-100/50">
         <CardHeader>
-          <CardTitle>Business profile</CardTitle>
+          <CardTitle className="text-[#1E293B]">Business profile</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-3 md:grid-cols-2">
           <div>
-            <Label>Business name</Label>
+            <Label className="font-semibold text-[#1E293B]">Business name</Label>
             <Input value={businessName} onChange={(e) => setBusinessName(e.target.value)} />
           </div>
           <div>
-            <Label>Contact number</Label>
+            <Label className="font-semibold text-[#1E293B]">Contact number</Label>
             <Input value={contactNumber} onChange={(e) => setContactNumber(e.target.value)} />
           </div>
-          <MutationButton onClick={saveProfile} isPending={upsert.isPending} pendingLabel="Saving...">
+          <MutationButton
+  className="bg-[#2563EB] text-white hover:bg-[#1D4ED8]"
+  onClick={saveProfile} isPending={upsert.isPending} pendingLabel="Saving...">
             Save profile
           </MutationButton>
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="border border-blue-100 bg-white shadow-lg shadow-blue-100/50">
         <CardHeader>
-          <CardTitle>Create listing (draft)</CardTitle>
+          <CardTitle className="text-[#1E293B]">Create listing (draft)</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-3 md:grid-cols-2">
           <div>
-            <Label>Name</Label>
+            <Label className="font-semibold text-[#1E293B]">Name</Label>
             <Input value={name} onChange={(e) => setName(e.target.value)} />
           </div>
           <div>
-            <Label>Address</Label>
+            <Label className="font-semibold text-[#1E293B]">Address</Label>
             <Input value={address} onChange={(e) => setAddress(e.target.value)} />
           </div>
           <MutationButton
+  className="bg-[#2563EB] text-white hover:bg-[#1D4ED8]"
             onClick={createDorm}
             disabled={verification !== "approved"}
             isPending={createListing.isPending}
@@ -129,9 +137,9 @@ function LandlordDashboard() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="border border-blue-100 bg-white shadow-lg shadow-blue-100/50">
         <CardHeader>
-          <CardTitle>My listings ({listings.data?.length ?? 0})</CardTitle>
+          <CardTitle className="text-[#1E293B]">My listings ({listings.data?.length ?? 0})</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2">
           {listings.isLoading && <InlineLoader label="Loading listings..." />}
@@ -143,13 +151,20 @@ function LandlordDashboard() {
             />
           )}
           {listings.data?.map((l) => (
-            <div key={l.id} className="flex items-center justify-between border-b border-white/10 pb-3">
+            <div key={l.id} className="flex items-center justify-between border-b border-blue-100 py-3">
               <div>
-                <p className="font-medium">{l.name}</p>
-                <Badge variant={l.listingStatus === "approved" ? "success" : "warning"}>{l.listingStatus}</Badge>
+                <p className="font-semibold text-[#1E293B]">{l.name}</p>
+                <Badge
+  variant={l.listingStatus === "approved" ? "success" : "warning"}
+>
+  {l.listingStatus || "No Status"}
+</Badge>
               </div>
               <Link to="/landlord/listings" search={{ dormId: l.id }}>
-                <Button size="sm" variant="outline">
+               <Button
+  variant="outline"
+  className="rounded-full border-[#BFDBFE] bg-[#EFF6FF] text-[#0F3D73] hover:bg-[#DBEAFE] hover:text-[#0F3D73]"
+>
                   Manage
                 </Button>
               </Link>
@@ -164,9 +179,9 @@ function LandlordDashboard() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="border border-blue-100 bg-white shadow-lg shadow-blue-100/50">
         <CardHeader>
-          <CardTitle>Reservation inbox ({inbox.data?.length ?? 0})</CardTitle>
+          <CardTitle className="text-[#1E293B]">Reservation inbox ({inbox.data?.length ?? 0})</CardTitle>
         </CardHeader>
         <CardContent>
           {inbox.isLoading && <InlineLoader label="Loading inbox count..." />}
@@ -178,10 +193,14 @@ function LandlordDashboard() {
             />
           )}
           <Link to="/landlord/reservations">
-            <Button variant="outline">View reservations</Button>
+            <Button
+  variant="outline"
+  className="rounded-full border-[#BFDBFE] bg-[#EFF6FF] text-[#0F3D73] hover:bg-[#DBEAFE]"
+>View reservations</Button>
           </Link>
         </CardContent>
       </Card>
+    </div>
     </div>
   );
 }

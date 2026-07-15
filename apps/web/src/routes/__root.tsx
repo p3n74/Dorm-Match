@@ -42,11 +42,11 @@ function RootComponent() {
       <HeadContent />
       <ThemeProvider
         attribute="class"
-        defaultTheme="dark"
+        defaultTheme="light"
         disableTransitionOnChange
         storageKey="vite-ui-theme"
       >
-        <div className="grid min-h-svh grid-rows-[auto_1fr] bg-zinc-950 text-zinc-50">
+        <div className="grid min-h-svh grid-rows-[auto_1fr] bg-background text-foreground">
           <Header />
           <main className="relative overflow-hidden">
             <div className="relative">

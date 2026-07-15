@@ -26,9 +26,11 @@ function TenantReservationsPage() {
   if (reservations.isLoading) return <PageLoader label="Loading your reservations..." />;
 
   return (
-    <div className="container mx-auto max-w-5xl px-4 py-8 space-y-4">
-      <Badge className="mb-2">Booking timeline</Badge>
-      <h1 className="text-4xl font-black tracking-tight md:text-5xl">My Reservations</h1>
+    <div className="min-h-screen bg-[#F4F9FF]">
+    <div className="container mx-auto max-w-6xl px-4 py-8 space-y-6">
+      <Badge className="mb-3 rounded-full border border-[#BFDBFE] bg-[#DBEAFE] px-4 py-1 text-[#0F3D73]">
+       Booking Timeline</Badge>
+      <h1 className="text-4xl font-black tracking-tight text-[#1E293B] md:text-5xl">My Reservations</h1>
       {reservations.isError && (
         <ErrorState
           title="Could not load reservations"
@@ -37,22 +39,35 @@ function TenantReservationsPage() {
         />
       )}
       {reservations.data?.map((r) => (
-        <Card key={r.id}>
+        <Card
+  key={r.id}
+  className="border border-blue-100 bg-white shadow-lg shadow-blue-100/50">
           <CardHeader>
             <div className="flex items-center gap-3">
-              <Avatar>
+              <Avatar className="border border-blue-200 bg-[#DBEAFE] text-[#0F3D73]">
                 <AvatarFallback>{r.status.slice(0, 2).toUpperCase()}</AvatarFallback>
               </Avatar>
               <div>
-                <CardTitle className="capitalize">Status: {r.status}</CardTitle>
-                <Badge variant={r.status === "confirmed" || r.status === "completed" ? "success" : "warning"}>
-                  {r.status}
-                </Badge>
+                <CardTitle className="capitalize text-[#1E293B]">Status: {r.status}</CardTitle>
+             <Badge
+  className={
+    r.status === "confirmed" || r.status === "completed"
+      ? "border border-emerald-200 bg-emerald-100 text-emerald-700"
+      : r.status === "pending"
+      ? "border border-amber-200 bg-amber-100 text-amber-700"
+      : r.status === "cancelled"
+      ? "border border-red-200 bg-red-100 text-red-700"
+      : "border border-slate-200 bg-slate-100 text-slate-700"
+  }
+>
+  {r.status}
+</Badge>
+                
               </div>
             </div>
           </CardHeader>
           <CardContent className="space-y-3">
-            <p className="text-sm">Move-in: {new Date(r.moveInDate).toLocaleDateString()}</p>
+            <p className="text-sm text-[#64748B]">Move-in: {new Date(r.moveInDate).toLocaleDateString()}</p>
             {["pending", "confirmed"].includes(r.status) && (
               <ConfirmAction
                 title="Cancel this reservation?"
@@ -61,8 +76,10 @@ function TenantReservationsPage() {
                 destructive
                 isPending={cancel.isPending}
                 trigger={
-                  <Button variant="destructive" size="sm">
-                    Cancel
+                  <Button
+                  size="sm"
+                  className="bg-red-600 text-white hover:bg-red-700">
+                  Cancel
                   </Button>
                 }
                 onConfirm={async () => {
@@ -77,8 +94,8 @@ function TenantReservationsPage() {
               />
             )}
             {r.status === "completed" && (
-              <div className="space-y-2 border-t pt-3">
-                <Label>Leave a review</Label>
+              <div className="space-y-3 border-t border-blue-100 pt-4">
+                <Label className="font-semibold text-[#1E293B]">Leave a review</Label>
                 <Input
                   type="number"
                   min={1}
@@ -92,6 +109,7 @@ function TenantReservationsPage() {
                   onChange={(e) => setComment(e.target.value)}
                 />
                 <MutationButton
+                  className="bg-[#2563EB] text-white hover:bg-[#1D4ED8]"
                   size="sm"
                   isPending={createReview.isPending}
                   pendingLabel="Submitting..."
@@ -127,11 +145,12 @@ function TenantReservationsPage() {
           description="Browse verified dorms, choose an available room, and submit your first move-in request."
           action={
             <Link to="/browse">
-              <Button>Browse dorms</Button>
+              <Button className="bg-[#2563EB] text-white hover:bg-[#1D4ED8]">Browse dorms</Button>
             </Link>
           }
         />
       )}
+    </div>
     </div>
   );
 }

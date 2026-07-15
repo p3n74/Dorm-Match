@@ -72,6 +72,42 @@ export const paymentsRouter = router({
       await assertTenantOwnsReservation(ctx.session.user.id, input.reservationId);
       return buildPaymentSummary(input.reservationId);
     }),
+
+    myHistory: tenantProcedure.query(async ({ ctx }) => {
+  const [profile] = await db
+    .select()
+    .from(tenantProfile)
+    .where(eq(tenantProfile.userId, ctx.session.user.id))
+    .limit(1);
+
+  if (!profile) {
+    throw new TRPCError({
+      code: "NOT_FOUND",
+      message: "Tenant profile required",
+    });
+  }
+
+  return await db.query.payment.findMany({
+    where: eq(payment.status, "completed"),
+    with: {
+      reservation: {
+        with: {
+          room: {
+            with: {
+              dorm: true,
+            },
+          },
+        },
+      },
+    },
+    orderBy: (payment, { desc }) => [desc(payment.paidAt)],
+  }).then((payments) =>
+    payments.filter(
+      (p) => p.reservation.tenantId === profile.id
+    )
+  );
+}),
+
 });
 
 async function buildPaymentSummary(reservationId: string) {

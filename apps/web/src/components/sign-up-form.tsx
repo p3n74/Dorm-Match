@@ -62,12 +62,14 @@ export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () 
   }
 
   return (
-    <Card className="mx-auto mt-10 w-full max-w-md">
+    <Card className="mx-auto mt-12 w-full max-w-md rounded-3xl border border-blue-100 bg-white shadow-2xl shadow-blue-200/50">
       <CardContent className="pt-6">
       <div className="mb-6 text-center">
-        <Badge className="mb-3">Join DormMatch</Badge>
-        <h1 className="text-4xl font-black tracking-tight">Create Account</h1>
-        <p className="mt-2 text-sm text-muted-foreground">Start matching with dorms and roommates in minutes.</p>
+        <Badge className="mb-3 rounded-full border border-[#BFDBFE] bg-[#DBEAFE] px-4 py-1 text-[#0F3D73]">
+  Join DormMatch
+</Badge>
+        <h1 className="text-4xl font-black tracking-tight text-[#1E293B]">Create Account</h1>
+        <p className="mt-2 text-sm text-[#64748B]">Start matching with dorms and roommates in minutes.</p>
       </div>
 
       <form
@@ -82,7 +84,10 @@ export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () 
           <form.Field name="name">
             {(field) => (
               <div className="space-y-2">
-                <Label htmlFor={field.name}>Name</Label>
+                <Label
+                htmlFor={field.name}
+                className="font-semibold text-[#1E293B]"
+                >Name</Label>
                 <Input
                   id={field.name}
                   name={field.name}
@@ -104,7 +109,10 @@ export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () 
           <form.Field name="email">
             {(field) => (
               <div className="space-y-2">
-                <Label htmlFor={field.name}>Email</Label>
+                <Label
+  htmlFor={field.name}
+  className="font-semibold text-[#1E293B]"
+>Email</Label>
                 <Input
                   id={field.name}
                   name={field.name}
@@ -127,10 +135,13 @@ export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () 
           <form.Field name="role">
             {(field) => (
               <div className="space-y-2">
-                <Label htmlFor={field.name}>I am a</Label>
+               <Label
+  htmlFor={field.name}
+  className="font-semibold text-[#1E293B]"
+>I am a</Label>
                 <select
                   id={field.name}
-                  className="h-11 w-full rounded-full border border-input bg-background/70 px-4 py-2 text-sm font-medium"
+                  className="h-11 w-full rounded-full border border-[#BFDBFE] bg-[#EFF6FF] px-4 py-2 text-sm font-medium text-[#1E293B] focus:border-[#2563EB] focus:outline-none"
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value as "tenant" | "dorm_owner")}
                 >
@@ -146,7 +157,10 @@ export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () 
           <form.Field name="password">
             {(field) => (
               <div className="space-y-2">
-                <Label htmlFor={field.name}>Password</Label>
+                <Label
+  htmlFor={field.name}
+  className="font-semibold text-[#1E293B]"
+>Password</Label>
                 <Input
                   id={field.name}
                   name={field.name}
@@ -169,7 +183,9 @@ export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () 
           selector={(state) => ({ canSubmit: state.canSubmit, isSubmitting: state.isSubmitting })}
         >
           {({ canSubmit, isSubmitting }) => (
-            <Button type="submit" className="w-full" disabled={!canSubmit || isSubmitting}>
+            <Button
+  type="submit"
+  className="w-full rounded-full bg-[#2563EB] text-white shadow-lg shadow-blue-300/40 hover:bg-[#1D4ED8]" disabled={!canSubmit || isSubmitting}>
               {isSubmitting ? "Submitting..." : "Sign Up"}
             </Button>
           )}
@@ -180,7 +196,7 @@ export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () 
         <Button
           variant="link"
           onClick={onSwitchToSignIn}
-          className="text-indigo-600 hover:text-indigo-800"
+          className="font-semibold text-[#2563EB] hover:text-[#1D4ED8]"
         >
           Already have an account? Sign In
         </Button>

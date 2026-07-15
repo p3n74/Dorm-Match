@@ -22,6 +22,7 @@ import { Route as TenantIndexRouteImport } from './routes/tenant.index'
 import { Route as LandlordIndexRouteImport } from './routes/landlord.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as TenantReservationsRouteImport } from './routes/tenant.reservations'
+import { Route as TenantPaymentsRouteImport } from './routes/tenant.payments'
 import { Route as RoommateChatConversationIdRouteImport } from './routes/roommate-chat.$conversationId'
 import { Route as LandlordReservationsRouteImport } from './routes/landlord.reservations'
 import { Route as LandlordListingsRouteImport } from './routes/landlord.listings'
@@ -92,6 +93,11 @@ const TenantReservationsRoute = TenantReservationsRouteImport.update({
   path: '/reservations',
   getParentRoute: () => TenantRoute,
 } as any)
+const TenantPaymentsRoute = TenantPaymentsRouteImport.update({
+  id: '/payments',
+  path: '/payments',
+  getParentRoute: () => TenantRoute,
+} as any)
 const RoommateChatConversationIdRoute =
   RoommateChatConversationIdRouteImport.update({
     id: '/roommate-chat/$conversationId',
@@ -128,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/landlord/listings': typeof LandlordListingsRoute
   '/landlord/reservations': typeof LandlordReservationsRoute
   '/roommate-chat/$conversationId': typeof RoommateChatConversationIdRoute
+  '/tenant/payments': typeof TenantPaymentsRoute
   '/tenant/reservations': typeof TenantReservationsRoute
   '/admin/': typeof AdminIndexRoute
   '/landlord/': typeof LandlordIndexRoute
@@ -144,6 +151,7 @@ export interface FileRoutesByTo {
   '/landlord/listings': typeof LandlordListingsRoute
   '/landlord/reservations': typeof LandlordReservationsRoute
   '/roommate-chat/$conversationId': typeof RoommateChatConversationIdRoute
+  '/tenant/payments': typeof TenantPaymentsRoute
   '/tenant/reservations': typeof TenantReservationsRoute
   '/admin': typeof AdminIndexRoute
   '/landlord': typeof LandlordIndexRoute
@@ -164,6 +172,7 @@ export interface FileRoutesById {
   '/landlord/listings': typeof LandlordListingsRoute
   '/landlord/reservations': typeof LandlordReservationsRoute
   '/roommate-chat/$conversationId': typeof RoommateChatConversationIdRoute
+  '/tenant/payments': typeof TenantPaymentsRoute
   '/tenant/reservations': typeof TenantReservationsRoute
   '/admin/': typeof AdminIndexRoute
   '/landlord/': typeof LandlordIndexRoute
@@ -185,6 +194,7 @@ export interface FileRouteTypes {
     | '/landlord/listings'
     | '/landlord/reservations'
     | '/roommate-chat/$conversationId'
+    | '/tenant/payments'
     | '/tenant/reservations'
     | '/admin/'
     | '/landlord/'
@@ -201,6 +211,7 @@ export interface FileRouteTypes {
     | '/landlord/listings'
     | '/landlord/reservations'
     | '/roommate-chat/$conversationId'
+    | '/tenant/payments'
     | '/tenant/reservations'
     | '/admin'
     | '/landlord'
@@ -220,6 +231,7 @@ export interface FileRouteTypes {
     | '/landlord/listings'
     | '/landlord/reservations'
     | '/roommate-chat/$conversationId'
+    | '/tenant/payments'
     | '/tenant/reservations'
     | '/admin/'
     | '/landlord/'
@@ -333,6 +345,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TenantReservationsRouteImport
       parentRoute: typeof TenantRoute
     }
+    '/tenant/payments': {
+      id: '/tenant/payments'
+      path: '/payments'
+      fullPath: '/tenant/payments'
+      preLoaderRoute: typeof TenantPaymentsRouteImport
+      parentRoute: typeof TenantRoute
+    }
     '/roommate-chat/$conversationId': {
       id: '/roommate-chat/$conversationId'
       path: '/roommate-chat/$conversationId'
@@ -391,11 +410,13 @@ const LandlordRouteWithChildren = LandlordRoute._addFileChildren(
 )
 
 interface TenantRouteChildren {
+  TenantPaymentsRoute: typeof TenantPaymentsRoute
   TenantReservationsRoute: typeof TenantReservationsRoute
   TenantIndexRoute: typeof TenantIndexRoute
 }
 
 const TenantRouteChildren: TenantRouteChildren = {
+  TenantPaymentsRoute: TenantPaymentsRoute,
   TenantReservationsRoute: TenantReservationsRoute,
   TenantIndexRoute: TenantIndexRoute,
 }

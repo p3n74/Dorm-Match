@@ -43,29 +43,35 @@ export default function UserMenu() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger render={<Button variant="outline" className="h-12 gap-3 pl-1.5 pr-5" />}>
-        <Avatar className="size-9">
+      <DropdownMenuTrigger render={<Button
+  variant="outline"
+  className="h-12 gap-3 rounded-full border-[#BFDBFE] bg-white pl-1.5 pr-5 text-[#1E293B] shadow-md hover:bg-[#EFF6FF] hover:text-[#1E293B]"
+/>}>
+        <Avatar className="size-9 bg-[#DBEAFE]">
           {session.user.image && <AvatarImage src={session.user.image} alt={session.user.name} />}
-          <AvatarFallback>{initials(session.user.name)}</AvatarFallback>
+          <AvatarFallback className="bg-[#DBEAFE] font-bold text-[#0F3D73]">
+  {initials(session.user.name)}
+</AvatarFallback>
         </Avatar>
         <span className="hidden sm:inline">{session.user.name}</span>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-64 rounded-2xl border border-white/10 bg-zinc-950 p-2 shadow-2xl shadow-black/40">
+      <DropdownMenuContent className="w-64 rounded-3xl border border-blue-100 bg-white p-2 shadow-xl shadow-blue-100/60">
         <DropdownMenuGroup>
           <DropdownMenuLabel>
             <div className="flex items-center gap-3">
-              <Avatar>
+              <Avatar className="bg-[#DBEAFE]">
                 {session.user.image && <AvatarImage src={session.user.image} alt={session.user.name} />}
-                <AvatarFallback>{initials(session.user.name)}</AvatarFallback>
+                <AvatarFallback className="bg-[#DBEAFE] font-bold text-[#0F3D73]">
+  {initials(session.user.name)}
+</AvatarFallback>
               </Avatar>
               <div>
-                <p className="font-black text-foreground">{session.user.name}</p>
-                <p className="text-xs normal-case tracking-normal text-muted-foreground">{session.user.email}</p>
+                <p className="font-bold text-[#1E293B]">{session.user.name}</p>
+                <p className="text-xs text-[#64748B]">{session.user.email}</p>
               </div>
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Community profile</DropdownMenuItem>
           <DropdownMenuItem
             variant="destructive"
             onClick={() => {

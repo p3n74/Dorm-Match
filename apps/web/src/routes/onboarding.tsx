@@ -42,43 +42,46 @@ function OnboardingPage() {
   };
 
   return (
-    <div className="container mx-auto max-w-5xl px-4 py-10">
-      <Badge className="mb-4">Pick your path</Badge>
-      <h1 className="mb-3 text-4xl font-black tracking-tight md:text-6xl">Welcome to DormMatch</h1>
-      <p className="mb-8 max-w-2xl text-lg text-muted-foreground">
+    <div className="min-h-screen bg-[#F4F9FF]">
+  <div className="container mx-auto max-w-5xl px-4 py-10">
+      <Badge className="mb-4 rounded-full border border-[#BFDBFE] bg-[#DBEAFE] px-4 py-1 text-[#0F3D73]">Pick your path</Badge>
+      <h1 className="mb-3 text-4xl font-black tracking-tight text-[#1E293B] md:text-6xl">Welcome to DormMatch</h1>
+      <p className="mb-8 max-w-2xl text-lg text-[#64748B]">
         Choose your community role. You can complete your profile and tune your matching preferences right after.
       </p>
       <div className="grid gap-4 md:grid-cols-2">
-        <Card>
+        <Card className="rounded-3xl border border-blue-100 bg-white shadow-xl shadow-blue-100/60">
           <CardHeader>
-            <Avatar className="mb-3 size-14">
-              <AvatarFallback>ST</AvatarFallback>
+            <Avatar className="mb-3 size-14 bg-[#DBEAFE]">
+              <AvatarFallback className="bg-[#DBEAFE] font-bold text-[#0F3D73]">ST</AvatarFallback>
             </Avatar>
-            <CardTitle>I am looking for a dorm</CardTitle>
+            <CardTitle className="text-[#1E293B]">I am looking for a dorm</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="mb-4 text-sm text-muted-foreground">
+            <p className="mb-6 text-sm text-[#64748B]">
               Search listings, request reservations, track payments, and leave reviews.
             </p>
-            <Button className="w-full" onClick={() => chooseRole("tenant")} disabled={setRole.isPending}>
+            <Button className="w-full rounded-full bg-[#2563EB] text-white hover:bg-[#1D4ED8]" onClick={() => chooseRole("tenant")} disabled={setRole.isPending}>
               Continue as Tenant
             </Button>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="rounded-3xl border border-blue-100 bg-white shadow-xl shadow-blue-100/60">
           <CardHeader>
-            <Avatar className="mb-3 size-14">
-              <AvatarFallback>DO</AvatarFallback>
-            </Avatar>
-            <CardTitle>I own or manage a dorm</CardTitle>
+            <Avatar className="mb-3 size-14 bg-[#DBEAFE]">
+  <AvatarFallback className="bg-[#DBEAFE] font-bold text-[#0F3D73]">
+    DO
+  </AvatarFallback>
+</Avatar>
+            <CardTitle className="text-[#1E293B]">I own or manage a dorm</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="mb-4 text-sm text-muted-foreground">
+            <p className="mb-6 text-sm text-[#64748B]">
               Create listings, manage rooms, accept reservations, and record payments.
             </p>
             <Button
-              className="w-full"
               variant="outline"
+              className="w-full rounded-full border-[#BFDBFE] bg-[#EFF6FF] text-[#0F3D73] hover:bg-[#DBEAFE]"
               onClick={() => chooseRole("dorm_owner")}
               disabled={setRole.isPending}
             >
@@ -87,6 +90,7 @@ function OnboardingPage() {
           </CardContent>
         </Card>
       </div>
+    </div>
     </div>
   );
 }
